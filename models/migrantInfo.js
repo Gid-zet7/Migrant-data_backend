@@ -4,12 +4,6 @@ const Schema = mongoose.Schema;
 
 const MigrantInfoModel = new Schema(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-
     first_name: {
       type: String,
       minLength: 3,
@@ -24,7 +18,6 @@ const MigrantInfoModel = new Schema(
 
     gender: {
       type: String,
-      required: true,
     },
 
     date_of_birth: {
@@ -43,7 +36,7 @@ const MigrantInfoModel = new Schema(
       email: String,
     },
 
-    migartion_status: {
+    migration_status: {
       type: String,
     },
   },
