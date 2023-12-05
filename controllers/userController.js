@@ -49,6 +49,49 @@ exports.user_create = asyncHandler(async (req, res) => {
   }
 });
 
+exports.user_update = asyncHandler(async (req, res) => {
+  const { id, username, email, password, roles } = req.body;
+
+  if (!id) {
+    return res
+      .sendStatus(400)
+      .json({
+        message: "Oops you need an id to find user, might not be your fault",
+      });
+  }
+
+  if (!username || !email || !Array.isArray(roles) || !roles.length) {
+    return res.sendStatus(400).json({ message: "All fields are required!" });
+  }
+
+  const user = await User.findById(id).exec();
+
+  if (!user) {
+    return res.sendStatus(400).json({ message: "User not found" });
+  }
+
+  const duplicate = await User.findOne({ username })
+    .collation({ locale: "en", strength: 2 })
+    .lean()
+    .exec();
+
+  if (duplicate && duplicate?._id.toString() !== id) {
+    return res.sendStatus(409).json({ message: "User already exists" });
+  }
+
+  user.username = username;
+  user.email = email;
+  user.roles = roles;
+
+  if (password) {
+    user.password = await bcrypt.hash(password, 10);
+  }
+
+  const updatedUser = await user.save();
+
+  res.json({ message: `${updatedUser.username} updated successfully` });
+});
+
 exports.user_delete = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
