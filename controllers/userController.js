@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
 
 exports.user_list = asyncHandler(async (req, res) => {
   const users = await User.find().select("-password").lean();
@@ -53,11 +54,9 @@ exports.user_update = asyncHandler(async (req, res) => {
   const { id, username, email, password, roles } = req.body;
 
   if (!id) {
-    return res
-      .sendStatus(400)
-      .json({
-        message: "Oops you need an id to find user, might not be your fault",
-      });
+    return res.sendStatus(400).json({
+      message: "Oops you need an id to find user, might not be your fault",
+    });
   }
 
   if (!username || !email || !Array.isArray(roles) || !roles.length) {
