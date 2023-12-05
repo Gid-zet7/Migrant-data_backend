@@ -55,7 +55,7 @@ exports.user_update = asyncHandler(async (req, res) => {
 
   if (!id) {
     return res.sendStatus(400).json({
-      message: "Oops you need an id to find user, might not be your fault",
+      message: "Oops you need an id to update user, might not be your fault",
     });
   }
 
@@ -95,7 +95,9 @@ exports.user_delete = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
   if (!id) {
-    return res.sendStatus(400).json({ message: "User ID required" });
+    return res.sendStatus(400).json({
+      message: "Oops you need an id to delete user, might not be your fault",
+    });
   }
 
   const user = await User.findById(id).exec();
