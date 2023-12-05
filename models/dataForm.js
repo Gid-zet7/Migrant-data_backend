@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const DataFormModel = new Schema(
   {
-    user: {
+    migrant_id: {
       type: Schema.Types.ObjectId,
       ref: "MigrantInfo",
       required: true,
