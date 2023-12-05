@@ -34,4 +34,8 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-module.exports = server;
+const PORT = 8080;
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;
