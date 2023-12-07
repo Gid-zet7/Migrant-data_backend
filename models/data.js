@@ -9,7 +9,14 @@ const DataFormModel = new Schema(
       ref: "MigrantInfo",
       required: true,
     },
-
+    research_title: {
+      type: String,
+      required: true,
+    },
+    research_desc: {
+      type: String,
+      required: true,
+    },
     questions: {
       type: [String],
     },
