@@ -3,6 +3,10 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 const { logger } = require("./middleware/logger");
+const { logEvents } = require("./middleware/logger");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
 
 var indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
@@ -13,6 +17,7 @@ var usersRouter = require("./routes/users");
 var app = express();
 
 app.use(logger);
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -42,6 +47,17 @@ app.use(function (err, req, res, next) {
 
 const PORT = 8080;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+mongoose.connection.once("open", () => {
+  console.log("connected to mongoDB");
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
+
+mongoose.connection.on("error", (err) => {
+  console.log(err);
+  logEvents(
+    `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
+    "mongoErrorLog.log"
+  );
+});
 
 module.exports = app;
