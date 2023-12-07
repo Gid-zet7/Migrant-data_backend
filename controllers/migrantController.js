@@ -1,4 +1,3 @@
-const User = require("../models/user");
 const MigrantInfo = require("../models/migrantInfo");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
