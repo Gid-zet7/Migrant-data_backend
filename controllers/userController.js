@@ -51,7 +51,7 @@ exports.user_create = asyncHandler(async (req, res) => {
 });
 
 exports.user_update = asyncHandler(async (req, res) => {
-  const { id, username, email, password, roles } = req.body;
+  const { id, username, email, password, roles, active } = req.body;
 
   if (!id) {
     return res.sendStatus(400).json({
@@ -59,7 +59,13 @@ exports.user_update = asyncHandler(async (req, res) => {
     });
   }
 
-  if (!username || !email || !Array.isArray(roles) || !roles.length) {
+  if (
+    !username ||
+    !email ||
+    !Array.isArray(roles) ||
+    !roles.length ||
+    !active
+  ) {
     return res.sendStatus(400).json({ message: "All fields are required!" });
   }
 
@@ -81,6 +87,7 @@ exports.user_update = asyncHandler(async (req, res) => {
   user.username = username;
   user.email = email;
   user.roles = roles;
+  user.active = active;
 
   if (password) {
     user.password = await bcrypt.hash(password, 10);
