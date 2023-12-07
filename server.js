@@ -7,6 +7,7 @@ const { logEvents } = require("./middleware/logger");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
+const connectDB = require("./config/databaseConnection");
 
 var indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
@@ -15,6 +16,8 @@ const migrantInfoRouter = require("./routes/migrant");
 var usersRouter = require("./routes/users");
 
 var app = express();
+
+connectDB();
 
 app.use(logger);
 app.use(cors(corsOptions));
