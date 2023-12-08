@@ -2,13 +2,13 @@ const request = require("supertest");
 const dataControllerTest = require("./dataControllerTest");
 
 describe("POST /data/create", () => {
-  describe("given research title, research description and questions", () => {
+  describe("given form title, form description and questions", () => {
     test("Should respond with a 200 status code", async () => {
       const response = await request(dataControllerTest)
         .post("/data/create")
         .send({
-          research_title: "title",
-          research_desc: "description",
+          form_title: "title",
+          form_desc: "description",
           questions: "questions",
         });
       expect(response.statusCode).toBe(200);
@@ -18,8 +18,8 @@ describe("POST /data/create", () => {
       const response = await request(dataControllerTest)
         .post("/data/create")
         .send({
-          research_title: "title",
-          research_desc: "description",
+          form_title: "title",
+          form_desc: "description",
           questions: "questions",
         });
       expect(response.headers["content-type"]).toEqual(
@@ -30,10 +30,7 @@ describe("POST /data/create", () => {
 
   describe("When any of the credentials is missing", () => {
     test("Should respond with a 400 status code", async () => {
-      const bodyData = [
-        { research_title: "title" },
-        { research_desc: "description" },
-      ];
+      const bodyData = [{ form_title: "title" }, { form_desc: "description" }];
 
       for (const body of bodyData) {
         const response = await request(dataControllerTest)
