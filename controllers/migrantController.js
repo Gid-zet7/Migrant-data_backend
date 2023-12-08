@@ -6,9 +6,7 @@ exports.get_all_migrantInfo = asyncHandler(async (req, res) => {
   const allInfo = await MigrantInfo.find().lean();
 
   if (!allInfo?.length) {
-    return res
-      .sendStatus(400)
-      .json({ message: "Couldn't find any migrant info" });
+    return res.status(400).json({ message: "Couldn't find any migrant info" });
   }
 
   res.json(allInfo);
@@ -35,7 +33,9 @@ exports.migrant_info_create = [
     .trim()
     .notEmpty()
     .withMessage("Nationality cannot be empty"),
-  body("contact").trim().notEmpty().withMessage("Contact cannot be empty"),
+  body("address").trim().escape(),
+  body("phone").trim().escape(),
+  body("email").trim().escape(),
   body("migration_status")
     .trim()
     .notEmpty()
@@ -48,7 +48,9 @@ exports.migrant_info_create = [
       gender,
       date_of_birth,
       nationality,
-      contact,
+      address,
+      phone,
+      email,
       migration_status,
     } = req.body;
 
@@ -60,13 +62,15 @@ exports.migrant_info_create = [
       });
     }
 
+    const contact_info = { address, phone, email };
+
     const info = await MigrantInfo.create({
       first_name,
       last_name,
       gender,
       date_of_birth,
       nationality,
-      contact,
+      contact_info,
       migration_status,
     });
 
@@ -99,7 +103,9 @@ exports.migrant_info_update = [
     .trim()
     .notEmpty()
     .withMessage("Nationality cannot be empty"),
-  body("contact").trim().notEmpty().withMessage("Contact cannot be empty"),
+  body("address").trim().escape(),
+  body("phone").trim().escape(),
+  body("email").trim().escape(),
   body("migration_status")
     .trim()
     .notEmpty()
@@ -113,7 +119,9 @@ exports.migrant_info_update = [
       gender,
       date_of_birth,
       nationality,
-      contact,
+      address,
+      phone,
+      email,
       migration_status,
     } = req.body;
 
@@ -131,12 +139,14 @@ exports.migrant_info_update = [
       return res.status(400).json({ message: "Info not found" });
     }
 
+    const contact_info = { address, phone, email };
+
     targetInfo.first_name = first_name;
     targetInfo.last_name = last_name;
     targetInfo.gender = gender;
     targetInfo.date_of_birth = date_of_birth;
     targetInfo.nationality = nationality;
-    targetInfo.contact = contact;
+    targetInfo.contact_info = contact_info;
     targetInfo.migration_status = migration_status;
 
     await targetInfo.save();
