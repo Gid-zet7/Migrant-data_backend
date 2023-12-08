@@ -1,0 +1,165 @@
+
+GET http://localhost:8080/
+
+
+###
+POST  http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{   
+    "username": "Gidzeto",
+    "email": "gid@gmail.com",
+    "password": "123456789",
+    "roles": ["Admin"]
+}
+
+###
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "username": "Gidzet",
+    "password": "123456789"
+}
+
+
+
+###
+GET http://localhost:8080/auth/refresh
+
+
+###
+POST http://localhost:8080/auth/logout
+
+
+
+###
+GET http://localhost:8080/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJVc2VybmFtZSI6IkdpZHpldCIsInJvbGVzIjpbIkFkbWluIl0sImFjdGl2ZSI6dHJ1ZX0sImlhdCI6MTcwMjAwNDAyNywiZXhwIjoxNzAyMDA0MDQ3fQ.v0jlJzJOeUhEhr3evvsl7IjkOUTFWh-rnZ2lu9oC9jc
+
+###
+POST  http://localhost:8080/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJVc2VybmFtZSI6IkdpZHpldCIsInJvbGVzIjpbIkFkbWluIl0sImFjdGl2ZSI6dHJ1ZX0sImlhdCI6MTcwMjAwNDAyNywiZXhwIjoxNzAyMDA0MDQ3fQ.v0jlJzJOeUhEhr3evvsl7IjkOUTFWh-rnZ2lu9oC9jc
+Content-Type: application/json
+
+{   
+    "username": "Demo_user",
+    "email": "demo@gmail.com",
+    "password": "123456789",
+    "roles": [
+     "Admin"
+   ]
+}
+
+###
+PATCH http://localhost:8080/users
+Content-Type: application/json
+
+{
+   "id": "6572672bb35d75128e111c8f",
+   "username": "Gidzet",
+   "email": "gid@gmail.com",
+   "roles": [
+     "Admin"
+   ],
+   "active": true
+}
+
+###
+DELETE http://localhost:8080/users
+Content-Type: application/json
+
+{   
+    "id": "6572693a369dec92af742c24"
+}
+
+###
+GET http://localhost:8080/migrant
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJVc2VybmFtZSI6IkdpZHpldCIsInJvbGVzIjpbIlVzZXIiXSwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNzAxOTk2MzQ0LCJleHAiOjE3MDE5OTYzNjR9.VSuPh_Zki1SDEsgiO07XHpbbkq60UJdt55IGdP4Yric
+
+###
+POST  http://localhost:8080/migrant
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJVc2VybmFtZSI6IkdpZHpldCIsInJvbGVzIjpbIlVzZXIiXSwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNzAxOTk2MzQ0LCJleHAiOjE3MDE5OTYzNjR9.VSuPh_Zki1SDEsgiO07XHpbbkq60UJdt55IGdP4Yric
+Content-Type: application/json
+
+{   
+
+    "first_name": "Kojo",
+    "last_name": "Doe",
+    "gender": "Male",
+    "date_of_birth": "03-05-1878",
+    "nationality": "Ivorian",
+    "address": "Gz-000-999",
+    "phone": "00905467",
+    "email": "ivorian@gamil.com",
+    "migration_status": "Regular"
+
+}
+
+###
+PATCH http://localhost:8080/migrant
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJVc2VybmFtZSI6IkZyZWQiLCJyb2xlcyI6WyJVc2VyIl19LCJpYXQiOjE3MDA2Nzc4MTcsImV4cCI6MTcwMDY3OTAxN30.DhdWlA4ihP6nCBdduN3_Mak7FG8xxKcDA_kSnC1obOY
+Content-Type: application/json
+
+{
+   "id": "657271d15f504808a7e30067",
+    "first_name": "John",
+    "last_name": "Doe",
+    "gender": "Male",
+    "date_of_birth": "03-05-1878",
+    "nationality": "Ivorian",
+    "address": "Gz-000-999",
+    "phone": "0244666666",
+    "email": "ivorian@gamil.com",
+    "migration_status": "Irregular"
+
+}
+
+###
+DELETE http://localhost:8080/migrant
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJVc2VybmFtZSI6IkZyZWQiLCJyb2xlcyI6WyJVc2VyIl19LCJpYXQiOjE3MDA2ODA1MDUsImV4cCI6MTcwMDY4MTcwNX0.OMBFpdSCJ-m7kUMshU7T1ifcJuNCkY7QW619qG2bQ80
+Content-Type: application/json
+
+{
+   "id": "657270f565cc0e5a31536a9d"
+
+}
+
+###
+GET http://localhost:8080/dataform
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJVc2VybmFtZSI6IkZyZWQiLCJyb2xlcyI6WyJVc2VyIl19LCJpYXQiOjE3MDA2ODA1MDUsImV4cCI6MTcwMDY4MTcwNX0.OMBFpdSCJ-m7kUMshU7T1ifcJuNCkY7QW619qG2bQ80
+
+###
+POST http://localhost:8080/dataform
+Content-Type: application/json
+
+{
+    "migrant_id": "655e4a566f71f8bd2a34b33c",
+    "form_title": "Migrant data",
+    "form_desc": "Set description here",
+    "questions": [{"question": "What is your primary reason for migrating?", "response": "Employment"}]
+}
+
+###
+DELETE http://localhost:8080/dataform
+Content-Type: application/json
+
+{  
+    "id": "65728192a925dba4f17b529b"
+}
+
+###
+# PATCH http://localhost:8080/comments
+# Content-Type: application/json
+
+# {
+#     "id": "655e4ad66f71f8bd2a34b348",
+#     "content": "This is kind of a very highly inspirational post"
+    
+# }
+
+
+
+
+
+
