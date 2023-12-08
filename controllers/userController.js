@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 exports.user_list = asyncHandler(async (req, res) => {
   const users = await User.find().select("-password").lean();
   if (!users?.length) {
-    return res.sendStatus(400).json({ message: "No users found" });
+    return res.status(400).json({ message: "No users found" });
   }
   res.json(users);
 });
@@ -14,7 +14,7 @@ exports.user_create = asyncHandler(async (req, res) => {
   const { username, email, password, roles } = req.body;
 
   if (!username || !password || !email || !roles) {
-    return res.sendStatus(400).json({ message: "All fields are required!" });
+    return res.status(400).json({ message: "All fields are required!" });
   }
 
   // Finding duplicates
@@ -24,7 +24,8 @@ exports.user_create = asyncHandler(async (req, res) => {
     .exec();
 
   if (duplicate) {
-    return res.sendStatus(409).json({ message: "Username already exists" });
+    console.log("exists");
+    return res.status(409).json({ message: "Username already exists" });
   }
 
   // Hashing password
@@ -44,9 +45,9 @@ exports.user_create = asyncHandler(async (req, res) => {
   const user = await User.create(userObj);
 
   if (user) {
-    res.sendStatus(201).json({ message: `New user ${username} created` });
+    res.status(201).json({ message: `New user ${username} created` });
   } else {
-    res.sendStatus(400).json({ mesaage: "Invalid" });
+    res.status(400).json({ mesaage: "Invalid" });
   }
 });
 
@@ -54,7 +55,7 @@ exports.user_update = asyncHandler(async (req, res) => {
   const { id, username, email, password, roles, active } = req.body;
 
   if (!id) {
-    return res.sendStatus(400).json({
+    return res.status(400).json({
       message: "Oops you need an id to update user, might not be your fault",
     });
   }
@@ -66,13 +67,13 @@ exports.user_update = asyncHandler(async (req, res) => {
     !roles.length ||
     !active
   ) {
-    return res.sendStatus(400).json({ message: "All fields are required!" });
+    return res.status(400).json({ message: "All fields are required!" });
   }
 
   const user = await User.findById(id).exec();
 
   if (!user) {
-    return res.sendStatus(400).json({ message: "User not found" });
+    return res.status(400).json({ message: "User not found" });
   }
 
   const duplicate = await User.findOne({ username })
@@ -81,7 +82,7 @@ exports.user_update = asyncHandler(async (req, res) => {
     .exec();
 
   if (duplicate && duplicate?._id.toString() !== id) {
-    return res.sendStatus(409).json({ message: "User already exists" });
+    return res.status(409).json({ message: "User already exists" });
   }
 
   user.username = username;
@@ -102,14 +103,14 @@ exports.user_delete = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
   if (!id) {
-    return res.sendStatus(400).json({
+    return res.status(400).json({
       message: "Oops you need an id to delete user, might not be your fault",
     });
   }
 
   const user = await User.findById(id).exec();
   if (!user) {
-    return res.sendStatus(400).json({ message: "User not found" });
+    return res.status(400).json({ message: "User not found" });
   }
 
   const result = await user.deleteOne();
