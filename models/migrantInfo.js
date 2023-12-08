@@ -32,7 +32,7 @@ const MigrantInfoModel = new Schema(
 
     contact_info: {
       address: String,
-      phone: Number,
+      phone: String,
       email: String,
     },
 
