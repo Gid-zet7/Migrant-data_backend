@@ -8,9 +8,9 @@ dataControllerTest.use(express.json());
 dataControllerTest.post(
   "/data/create",
   asyncHandler(async (req, res) => {
-    const { research_title, research_desc, questions } = req.body;
+    const { form_title, form_desc, questions } = req.body;
 
-    if (!research_title || !research_desc || !questions) {
+    if (!form_title || !form_desc || !questions) {
       return res.sendStatus(400);
     }
 
