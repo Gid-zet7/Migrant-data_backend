@@ -11,7 +11,8 @@ const connectDB = require("./config/databaseConnection");
 
 var indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
-const migrantDataRouter = require("./routes/migrantData");
+const dataRouter = require("./routes/data");
+const questionsForm = require("./routes/questions");
 const migrantInfoRouter = require("./routes/migrant");
 var usersRouter = require("./routes/users");
 
@@ -28,8 +29,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
-app.use("/dataform", migrantDataRouter);
-app.use("/migrant", migrantInfoRouter);
+app.use("/data", dataRouter);
+app.use("/questions", questionsForm);
+app.use("/migrants", migrantInfoRouter);
 app.use("/users", usersRouter);
 
 app.all("*", (req, res) => {
