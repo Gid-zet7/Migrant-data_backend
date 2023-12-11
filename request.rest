@@ -74,7 +74,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/migrant
+GET http://localhost:8080/migrants
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJVc2VybmFtZSI6IkdpZHpldCIsInJvbGVzIjpbIlVzZXIiXSwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNzAxOTk2MzQ0LCJleHAiOjE3MDE5OTYzNjR9.VSuPh_Zki1SDEsgiO07XHpbbkq60UJdt55IGdP4Yric
 
 ###
@@ -116,7 +116,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/migrant
+DELETE http://localhost:8080/migrants
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJVc2VybmFtZSI6IkZyZWQiLCJyb2xlcyI6WyJVc2VyIl19LCJpYXQiOjE3MDA2ODA1MDUsImV4cCI6MTcwMDY4MTcwNX0.OMBFpdSCJ-m7kUMshU7T1ifcJuNCkY7QW619qG2bQ80
 Content-Type: application/json
 
