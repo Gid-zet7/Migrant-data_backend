@@ -17,15 +17,31 @@ exports.data_create = [
   asyncHandler(async (req, res) => {
     const { data } = req.body;
 
-    console.log(data);
-    const newData = await ResearchData.create({
-      data,
-    });
+    for (const newData of data) {
+      const result = await ResearchData.findOne({
+        "data.question": newData.question,
+        "data.response": newData.response,
+      });
 
-    if (newData) {
-      return res.status(201).json({ message: `Saved successfully` });
-    } else {
-      return res.status(400).json({ message: "Invalid data provided" });
+      if (result) {
+        await ResearchData.updateOne(
+          {
+            "data.question": newData.question,
+            "data.response": newData.response,
+          },
+          { $set: { "data.value": result.data.value + 1 } }
+        );
+        console.log("Document updated successfully.");
+      } else {
+        await ResearchData.create({
+          data: {
+            question: newData.question,
+            response: newData.response,
+            value: 1,
+          },
+        });
+        console.log("Document inserted successfully.");
+      }
     }
   }),
 ];
