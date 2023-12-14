@@ -8,12 +8,11 @@ const ResearchDataModel = new Schema(
       type: String,
       required: false,
     },
-    data: [
-      {
-        question: { type: String, required: true },
-        response: { type: String, required: true },
-      },
-    ],
+    data: {
+      question: { type: String, required: true },
+      response: { type: String, required: true },
+      value: { type: Number, required: false, default: 1 },
+    },
   },
   {
     timestamps: true,
