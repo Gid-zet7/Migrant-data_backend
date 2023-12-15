@@ -1,10 +1,12 @@
 const QuestionsForm = require("../models/questions");
+const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const moment = require("moment");
 
 exports.get_all_questionsForm = asyncHandler(async (req, res) => {
   const questionForms = await QuestionsForm.find()
     .populate("questions.options")
+    .populate("user_id")
     .exec();
 
   questionForms.createdAt = moment(questionForms.createdAt).format(
@@ -25,10 +27,18 @@ exports.get_all_questionsForm = asyncHandler(async (req, res) => {
 
 exports.question_form_create = [
   asyncHandler(async (req, res) => {
-    const { migrant_id, formTitle, formDesc, questions } = req.body;
+    const { username, formTitle, formDesc, questions } = req.body;
+
+    const user = await User.findOne({ username }).exec();
+
+    if (!user) {
+      return res.status(400).json({ message: "user not found" });
+    }
+
+    console.log(user);
 
     const questionForm = await QuestionsForm.create({
-      migrant_id,
+      user_id: user,
       form_title: formTitle,
       form_desc: formDesc,
       questions: questions.map((question) => question),
