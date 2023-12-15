@@ -7,7 +7,7 @@ const QuestionsFormModel = new Schema(
     user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: false,
     },
 
     form_title: {
